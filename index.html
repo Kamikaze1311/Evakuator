@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Эвакуатор 725 — Ташкент 24/7</title>
+    <meta name="description" content="Эвакуатор в Ташкенте за 15 минут. Круглосуточно.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: var(--font) !important;
+        }
+
+        :root {
+            --accent: #E55A00;
+            --accent-light: #FF6B00;
+            --accent-bright: #FF8533;
+            --black: #0C0C0C;
+            --dark: #161616;
+            --darker: #111;
+            --gray: #666;
+            --light-gray: #999;
+            --white: #FAFAFA;
+            --font: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--accent-bright);
+            color: var(--black);
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 24px 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        header.scrolled {
+            padding: 16px 0;
+            background: rgba(12, 12, 12, 0.9);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(255, 107, 0, 0.1);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent-light) 50%, var(--accent-bright) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .lang-switch {
+            display: flex;
+            background: rgba(255,255,255,0.05);
+            border-radius: 100px;
+            padding: 4px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .lang-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: var(--accent-bright);
+            color: var(--black);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--white);
+        }
+
+        .header-phone {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+            display: none;
+            letter-spacing: -0.5px;
+        }
+
+        @media (min-width: 900px) {
+            .header-phone {
+                display: block;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 36px;
+            background: linear-gradient(135deg, var(--accent-bright) 0%, #E55A00 100%);
+            color: var(--black);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 15px;
+            text-decoration: none;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(255, 107, 0, 0.35);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--white);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent-bright);
+            color: var(--accent-bright);
+            box-shadow: 0 20px 50px rgba(255, 107, 0, 0.15);
+        }
+
+        .btn-ghost::before {
+            display: none;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 160px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 107, 0, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 100% 50%, rgba(255, 107, 0, 0.08) 0%, transparent 50%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 107, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 107, 0, 0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            background: rgba(255, 107, 0, 0.08);
+            border: 1px solid rgba(255, 107, 0, 0.2);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-bright);
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: var(--accent-bright);
+            border-radius: 50%;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px var(--accent-bright), 0 0 10px var(--accent-bright); }
+            50% { box-shadow: 0 0 20px var(--accent-bright), 0 0 30px var(--accent-bright); }
+        }
+
+        .hero h1 {
+            font-size: clamp(52px, 11vw, 140px);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -6px;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 .gold {
+            background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent-light) 50%, var(--accent-bright) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text {
+            font-size: 22px;
+            color: var(--light-gray);
+            max-width: 550px;
+            margin-bottom: 56px;
+            line-height: 1.7;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 80px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 64px;
+            flex-wrap: wrap;
+            padding-top: 48px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -3px;
+            line-height: 1;
+            background: linear-gradient(180deg, var(--white) 0%, var(--light-gray) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sections */
+        section {
+            padding: 140px 0;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-bright);
+            margin-bottom: 24px;
+            padding: 10px 20px;
+            background: rgba(255, 107, 0, 0.1);
+            border-radius: 100px;
+        }
+
+        .section-title {
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 700;
+            letter-spacing: -3px;
+            line-height: 1;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: var(--light-gray);
+            margin-top: 24px;
+            max-width: 600px;
+        }
+
+        /* Features */
+        .features {
+            background: var(--dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 32px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 1100px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature {
+            background: var(--dark);
+            padding: 56px 40px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .feature::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 40px;
+            right: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-bright), transparent);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .feature:hover::after {
+            opacity: 1;
+        }
+
+        .feature:hover {
+            background: rgba(255, 107, 0, 0.03);
+        }
+
+        .feature-icon {
+            width: 72px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.15) 0%, rgba(255, 107, 0, 0.05) 100%);
+            border-radius: 20px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(255, 107, 0, 0.1);
+        }
+
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--accent-bright);
+        }
+
+        .feature h3 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .feature p {
+            color: var(--gray);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* Services */
+        .services-grid {
+            display: flex;
+            flex-direction: column;
+        }
+
+        a.service-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            cursor: pointer;
+            transition: all 0.4s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .service-row:hover {
+            padding-left: 32px;
+        }
+
+        .service-row:hover .service-title {
+            color: var(--accent-bright);
+        }
+
+        .service-row:hover .service-num {
+            color: var(--accent-bright);
+        }
+
+        .service-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .service-num {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray);
+            transition: color 0.4s;
+        }
+
+        .service-title {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 700;
+            letter-spacing: -2px;
+            transition: color 0.4s;
+        }
+
+        .service-arrow {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.4s;
+        }
+
+        .service-row:hover .service-arrow {
+            background: var(--accent-bright);
+            border-color: var(--accent-bright);
+            transform: rotate(-45deg);
+        }
+
+        .service-arrow svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--gray);
+            transition: stroke 0.4s;
+        }
+
+        .service-row:hover .service-arrow svg {
+            stroke: var(--black);
+        }
+
+        /* Steps */
+        .steps {
+            background: var(--dark);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        @media (max-width: 1000px) {
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .step {
+            position: relative;
+            padding: 48px;
+            background: linear-gradient(180deg, rgba(255, 107, 0, 0.04) 0%, transparent 100%);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 28px;
+            transition: all 0.5s;
+        }
+
+        .step:hover {
+            border-color: rgba(255, 107, 0, 0.3);
+            transform: translateY(-8px);
+        }
+
+        .step-num {
+            font-size: 100px;
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: absolute;
+            top: 24px;
+            right: 32px;
+        }
+
+        .step h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .step p {
+            color: var(--gray);
+            font-size: 16px;
+            line-height: 1.7;
+            position: relative;
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.12) 0%, rgba(255, 107, 0, 0.04) 100%);
+            border: 1px solid rgba(255, 107, 0, 0.15);
+            border-radius: 48px;
+            padding: 100px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 107, 0, 0.1) 0%, transparent 40%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-phone {
+            display: block;
+            font-size: clamp(48px, 10vw, 96px);
+            font-weight: 700;
+            letter-spacing: -4px;
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-gray) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            margin: 48px 0;
+            transition: all 0.4s;
+        }
+
+        .cta-phone:hover {
+            background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        /* Reviews */
+        .reviews {
+            background: var(--dark);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        @media (max-width: 1000px) {
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .review {
+            background: var(--darker);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 28px;
+            padding: 48px;
+            transition: all 0.5s;
+        }
+
+        .review:hover {
+            border-color: rgba(255, 107, 0, 0.2);
+        }
+
+        .review-stars {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 32px;
+        }
+
+        .review-stars svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent-bright);
+        }
+
+        .review-text {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .review-avatar {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--black);
+        }
+
+        .review-name {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .review-date {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+
+        .footer-copy {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .footer-phone {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-phone:hover {
+            color: var(--accent-bright);
+        }
+
+        .footer-dev {
+            width: 100%;
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 8px;
+        }
+
+        .footer-dev a {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: var(--gray);
+            font-size: 12px;
+            transition: color 0.3s;
+        }
+
+        .footer-dev a:hover {
+            color: var(--white);
+        }
+
+        .footer-dev svg {
+            transition: opacity 0.3s;
+        }
+
+        .footer-dev span {
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        /* Mobile CTA */
+        .mobile-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 24px;
+            background: rgba(12, 12, 12, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-top: 1px solid rgba(255, 107, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .mobile-cta .btn {
+            width: 100%;
+            padding: 20px;
+            font-size: 17px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-cta {
+                display: block;
+            }
+
+            footer {
+                padding-bottom: 140px;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .hero-stats {
+                gap: 40px;
+            }
+
+            .stat-value {
+                font-size: 40px;
+            }
+
+            .section-title {
+                letter-spacing: -2px;
+            }
+
+            .cta-box {
+                padding: 60px 32px;
+                border-radius: 32px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .header-right {
+                gap: 16px;
+            }
+
+            .lang-btn {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+
+            .btn {
+                padding: 14px 24px;
+                font-size: 14px;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+
+            .section-header {
+                margin-bottom: 48px;
+            }
+
+            .feature {
+                padding: 32px 24px;
+            }
+
+            .feature h3 {
+                font-size: 20px;
+            }
+
+            .step {
+                padding: 32px 24px;
+            }
+
+            .step-num {
+                font-size: 60px;
+            }
+
+            .review {
+                padding: 32px 24px;
+            }
+
+            .service-left {
+                gap: 20px;
+            }
+
+            .service-num {
+                font-size: 14px;
+            }
+
+            .service-arrow {
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            header {
+                padding: 16px 0;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .header-right {
+                gap: 12px;
+            }
+
+            .lang-btn {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .btn {
+                padding: 12px 18px;
+                font-size: 13px;
+                gap: 8px;
+            }
+
+            .btn svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .hero-label {
+                padding: 10px 16px;
+                font-size: 12px;
+                margin-bottom: 24px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+                letter-spacing: -2px;
+                margin-bottom: 24px;
+            }
+
+            .hero-text {
+                font-size: 16px;
+                margin-bottom: 32px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                margin-bottom: 48px;
+            }
+
+            .hero-cta .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 16px 24px;
+            }
+
+            .hero-stats {
+                gap: 24px;
+                flex-direction: column;
+                padding-top: 32px;
+            }
+
+            .stat-value {
+                font-size: 32px;
+                letter-spacing: -1px;
+            }
+
+            .stat-label {
+                font-size: 12px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .section-label {
+                font-size: 11px;
+                padding: 8px 14px;
+                letter-spacing: 2px;
+            }
+
+            .section-title {
+                font-size: 28px;
+                letter-spacing: -1px;
+            }
+
+            .section-subtitle {
+                font-size: 15px;
+                margin-top: 16px;
+            }
+
+            .section-header {
+                margin-bottom: 32px;
+            }
+
+            .features-grid {
+                border-radius: 20px;
+            }
+
+            .feature {
+                padding: 28px 20px;
+            }
+
+            .feature-icon {
+                width: 56px;
+                height: 56px;
+                border-radius: 14px;
+                margin-bottom: 20px;
+            }
+
+            .feature-icon svg {
+                width: 26px;
+                height: 26px;
+            }
+
+            .feature h3 {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            .feature p {
+                font-size: 14px;
+            }
+
+            .service-row {
+                padding: 24px 0;
+            }
+
+            .service-left {
+                gap: 16px;
+            }
+
+            .service-num {
+                font-size: 12px;
+                display: none;
+            }
+
+            .service-title {
+                font-size: 20px;
+                letter-spacing: -1px;
+            }
+
+            .service-arrow {
+                width: 40px;
+                height: 40px;
+            }
+
+            .service-arrow svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .steps-grid {
+                gap: 16px;
+            }
+
+            .step {
+                padding: 28px 20px;
+                border-radius: 20px;
+            }
+
+            .step-num {
+                font-size: 48px;
+                top: 16px;
+                right: 20px;
+            }
+
+            .step h3 {
+                font-size: 18px;
+            }
+
+            .step p {
+                font-size: 14px;
+            }
+
+            .cta-box {
+                padding: 40px 20px;
+                border-radius: 24px;
+            }
+
+            .cta-phone {
+                font-size: 28px;
+                letter-spacing: -1px;
+                margin: 24px 0;
+            }
+
+            .reviews-grid {
+                gap: 16px;
+            }
+
+            .review {
+                padding: 28px 20px;
+                border-radius: 20px;
+            }
+
+            .review-stars {
+                margin-bottom: 20px;
+            }
+
+            .review-stars svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .review-text {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .review-author {
+                gap: 14px;
+            }
+
+            .review-avatar {
+                width: 44px;
+                height: 44px;
+                font-size: 16px;
+            }
+
+            .review-name {
+                font-size: 15px;
+            }
+
+            .review-date {
+                font-size: 12px;
+            }
+
+            footer {
+                padding: 48px 0 140px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+
+            .footer-phone {
+                font-size: 18px;
+            }
+
+            .mobile-cta {
+                padding: 16px;
+            }
+
+            .mobile-cta .btn {
+                padding: 16px;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .lang-switch {
+                padding: 2px;
+            }
+
+            .lang-btn {
+                padding: 5px 8px;
+                font-size: 10px;
+            }
+
+            .header-right > .btn {
+                padding: 10px 14px;
+                font-size: 12px;
+            }
+
+            .header-right > .btn svg {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero-text {
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .service-title {
+                font-size: 18px;
+            }
+
+            .cta-phone {
+                font-size: 24px;
+            }
+
+            .feature h3,
+            .step h3 {
+                font-size: 16px;
+            }
+
+            .feature p,
+            .step p,
+            .review-text {
+                font-size: 13px;
+            }
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">725</div>
+                <div class="header-right">
+                    <div class="lang-switch">
+                        <a href="/ru" class="lang-btn active" data-lang="ru">RU</a>
+                        <a href="/uz" class="lang-btn" data-lang="uz">UZ</a>
+                    </div>
+                    <a href="tel:+998997727777" class="header-phone">+998 99 772 77 77</a>
+                    <a href="tel:+998997727777" class="btn" data-i18n="cta_call">Позвонить</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-label" data-i18n="hero_badge">Работаем сейчас — 24/7</div>
+                <h1><span data-i18n="hero_title1">Эвакуатор</span><br><span class="gold" data-i18n="hero_title2">за 15 минут</span></h1>
+                <p class="hero-text" data-i18n="hero_text">Профессиональная эвакуация по Ташкенту и республике. Цены от 100 000 сум. Бережная погрузка.</p>
+                <div class="hero-cta">
+                    <a href="tel:+998997727777" class="btn">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span data-i18n="cta_call">Позвонить</span>
+                    </a>
+                    <a href="#services" class="btn btn-ghost" data-i18n="cta_services">Услуги</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">15K+</div>
+                        <div class="stat-label" data-i18n="stat_orders">Заказов</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label" data-i18n="stat_work">Работаем</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">15<span style="font-size:0.6em"> min</span></div>
+                        <div class="stat-label" data-i18n="stat_time">Приезд</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label" data-i18n="features_label">Преимущества</div>
+                <h2 class="section-title" data-i18n="features_title">Почему мы</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature reveal">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <h3 data-i18n="f1_title">15 минут</h3>
+                    <p data-i18n="f1_text">Быстрый приезд в любую точку Ташкента. Свой автопарк по всему городу.</p>
+                </div>
+                <div class="feature reveal">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3 data-i18n="f2_title">Бережно</h3>
+                    <p data-i18n="f2_text">Современное оборудование и опытные водители. Гарантия сохранности.</p>
+                </div>
+                <div class="feature reveal">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    </div>
+                    <h3 data-i18n="f3_title">Любая оплата</h3>
+                    <p data-i18n="f3_text">Наличные, карта, Click, Payme. Платите после выполнения работы.</p>
+                </div>
+                <div class="feature reveal">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <h3 data-i18n="f4_title">24/7</h3>
+                    <p data-i18n="f4_text">Диспетчер на связи круглосуточно. Ответим мгновенно в любое время.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label" data-i18n="services_label">Услуги</div>
+                <h2 class="section-title" data-i18n="services_title">Эвакуируем</h2>
+                <p class="section-subtitle" data-i18n="services_subtitle">От мотоцикла до грузовика. Цены от 100 000 сум.</p>
+            </div>
+            <div class="services-grid">
+                <a href="tel:+998997727777" class="service-row reveal">
+                    <div class="service-left">
+                        <span class="service-num">01</span>
+                        <span class="service-title" data-i18n="s1">Легковые авто</span>
+                    </div>
+                    <div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </a>
+                <a href="tel:+998997727777" class="service-row reveal">
+                    <div class="service-left">
+                        <span class="service-num">02</span>
+                        <span class="service-title" data-i18n="s2">Внедорожники</span>
+                    </div>
+                    <div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </a>
+                <a href="tel:+998997727777" class="service-row reveal">
+                    <div class="service-left">
+                        <span class="service-num">03</span>
+                        <span class="service-title" data-i18n="s3">Микроавтобусы</span>
+                    </div>
+                    <div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </a>
+                <a href="tel:+998997727777" class="service-row reveal">
+                    <div class="service-left">
+                        <span class="service-num">04</span>
+                        <span class="service-title" data-i18n="s4">Мотоциклы</span>
+                    </div>
+                    <div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </a>
+                <a href="tel:+998997727777" class="service-row reveal">
+                    <div class="service-left">
+                        <span class="service-num">05</span>
+                        <span class="service-title" data-i18n="s5">После ДТП</span>
+                    </div>
+                    <div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </a>
+                <a href="tel:+998997727777" class="service-row reveal">
+                    <div class="service-left">
+                        <span class="service-num">06</span>
+                        <span class="service-title" data-i18n="s6">Межгород</span>
+                    </div>
+                    <div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label" data-i18n="steps_label">Процесс</div>
+                <h2 class="section-title" data-i18n="steps_title">Как работаем</h2>
+            </div>
+            <div class="steps-grid">
+                <div class="step reveal">
+                    <div class="step-num">01</div>
+                    <h3 data-i18n="step1_title">Звоните</h3>
+                    <p data-i18n="step1_text">Позвоните нам — диспетчер ответит мгновенно</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-num">02</div>
+                    <h3 data-i18n="step2_title">Адрес</h3>
+                    <p data-i18n="step2_text">Скажите где машина и куда доставить</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-num">03</div>
+                    <h3 data-i18n="step3_title">Ждёте</h3>
+                    <p data-i18n="step3_text">Эвакуатор приедет через 15-20 минут</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-num">04</div>
+                    <h3 data-i18n="step4_title">Оплата</h3>
+                    <p data-i18n="step4_text">Платите после доставки любым способом</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <div class="cta-box reveal">
+                <div class="cta-content">
+                    <div class="section-label" data-i18n="cta_label">Нужна помощь?</div>
+                    <h2 class="section-title" data-i18n="cta_title">Звоните сейчас</h2>
+                    <a href="tel:+998997727777" class="cta-phone">+998 99 772 77 77</a>
+                    <a href="tel:+998997727777" class="btn">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span data-i18n="cta_button">Вызвать эвакуатор</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label" data-i18n="reviews_label">Отзывы</div>
+                <h2 class="section-title" data-i18n="reviews_title">Клиенты о нас</h2>
+            </div>
+            <div class="reviews-grid">
+                <div class="review reveal">
+                    <div class="review-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="review-text" data-i18n="r1_text">«Машина сломалась ночью на Чиланзаре. Приехали за 15 минут, всё сделали аккуратно. Рекомендую!»</p>
+                    <div class="review-author">
+                        <div class="review-avatar">А</div>
+                        <div>
+                            <div class="review-name" data-i18n="r1_name">Азиз</div>
+                            <div class="review-date" data-i18n="r1_date">2 недели назад</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review reveal">
+                    <div class="review-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="review-text" data-i18n="r2_text">«После ДТП ребята всё взяли на себя. Быстро, чётко, помогли с документами. Огромное спасибо!»</p>
+                    <div class="review-author">
+                        <div class="review-avatar">Д</div>
+                        <div>
+                            <div class="review-name" data-i18n="r2_name">Дильшод</div>
+                            <div class="review-date" data-i18n="r2_date">1 месяц назад</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review reveal">
+                    <div class="review-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="review-text" data-i18n="r3_text">«Вызывала для мужа когда не завелась машина. Очень быстро, очень вежливые. Теперь только к вам!»</p>
+                    <div class="review-author">
+                        <div class="review-avatar">Н</div>
+                        <div>
+                            <div class="review-name" data-i18n="r3_name">Нигора</div>
+                            <div class="review-date" data-i18n="r3_date">3 недели назад</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <p class="footer-copy">© 2026 Эвакуатор 725. Ташкент.</p>
+                <a href="tel:+998997727777" class="footer-phone">+998 99 772 77 77</a>
+                <div class="footer-dev">
+                    <a href="https://keypix.uz" target="_blank" rel="noopener noreferrer">
+                        <span>Разработка сайтов</span>
+                        <svg width="80" height="16" viewBox="0 0 768 158" fill="none" xmlns="http://www.w3.org/2000/svg"><mask id="mask0_2032_319" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="768" height="158"><path d="M768 0H0V157.458H768V0Z" fill="white"/></mask><g mask="url(#mask0_2032_319)"><path d="M111.248 0H54.0365C26.402 0 4 22.402 4 50.0365V107.395C4 135.03 26.402 157.435 54.0365 157.435H111.248C138.883 157.435 161.285 135.03 161.285 107.395V50.0365C161.285 22.402 138.883 0 111.248 0Z" fill="#CCFF00"/><path fill-rule="evenodd" clip-rule="evenodd" d="M42.5898 106.35V52.8625C42.5898 51.49 43.1263 50.172 44.0848 49.1895L57.2439 35.7005C59.2529 33.6415 62.5438 33.578 64.6303 35.559L81.5069 51.5815C81.9644 52.0155 82.3263 52.5125 82.5923 53.0455V52.8625C82.5923 51.49 83.1289 50.172 84.0874 49.1895L97.2463 35.7005C99.2553 33.6415 102.546 33.578 104.633 35.559L121.509 51.5815C123.628 53.593 123.702 56.9455 121.673 59.048L106.117 75.173C104.151 77.2105 104.151 80.44 106.117 82.475L121.804 98.735C123.781 100.785 123.769 104.035 121.776 106.07L105.464 122.72C103.479 124.75 100.245 124.835 98.1538 122.92L84.2988 110.225C83.2118 109.23 82.5923 107.82 82.5923 106.35V104.985C82.3728 105.37 82.0998 105.735 81.7738 106.07L65.4619 122.72C63.4769 124.75 60.2424 124.835 58.1509 122.92L44.2963 110.225C43.2093 109.23 42.5898 107.82 42.5898 106.35ZM82.5923 99.795V57.746C82.3593 58.213 82.0523 58.6525 81.6708 59.048L66.1149 75.173C64.1489 77.2105 64.1489 80.44 66.1149 82.475L81.8018 98.735C82.1153 99.06 82.3788 99.42 82.5923 99.795Z" fill="black"/><path d="M687.36 127.13C686.655 128.125 685.51 128.72 684.29 128.72H658.81C655.695 128.72 653.94 125.145 655.835 122.68L686.67 82.545C687.035 82.065 687.235 81.485 687.235 80.885C687.235 80.28 687.035 79.697 686.665 79.2205L655.85 39.2319C653.95 36.7644 655.71 33.1885 658.825 33.1885H684.355C685.54 33.1885 686.655 33.748 687.36 34.6975L708.77 63.399C709.11 63.858 709.65 64.129 710.22 64.129C710.815 64.129 711.365 63.8415 711.705 63.359L731.835 34.78C732.54 33.7825 733.685 33.1885 734.905 33.1885H760.445C763.545 33.1885 765.31 36.7374 763.435 39.2089L732.66 79.7935C732.3 80.27 732.105 80.85 732.105 81.445C732.105 82.05 732.305 82.64 732.675 83.12L763.315 122.665C765.225 125.135 763.465 128.72 760.345 128.72H734.855C733.66 128.72 732.54 128.15 731.835 127.195L710.565 98.37C710.225 97.91 709.685 97.635 709.11 97.635C708.52 97.635 707.97 97.92 707.63 98.4L687.36 127.13Z" fill="white"/><path d="M645.49 124.965C645.49 127.04 643.81 128.72 641.735 128.72H622.46C620.39 128.72 618.71 127.04 618.71 124.965V36.941C618.71 34.8685 620.39 33.1885 622.46 33.1885H641.735C643.81 33.1885 645.49 34.8685 645.49 36.941V124.965Z" fill="white"/><path d="M547.21 124.965C547.21 127.04 545.53 128.72 543.455 128.72H524.185C522.11 128.72 520.43 127.04 520.43 124.965V36.941C520.43 34.8685 522.11 33.1885 524.185 33.1885H573.28C595.925 33.1885 610.17 46.1635 610.17 68.834C610.17 91.505 595.925 104.62 573.28 104.62H550.965C548.89 104.62 547.21 106.3 547.21 108.375V124.965ZM570.285 57.285H550.965C548.89 57.285 547.21 58.9649 547.21 61.0374V76.773C547.21 78.8455 548.89 80.525 550.965 80.525H570.285C579.69 80.525 583.535 78.672 583.535 68.834C583.535 59.1385 579.69 57.285 570.285 57.285Z" fill="white"/><path d="M471.77 124.965C471.77 127.04 470.09 128.72 468.015 128.72H448.74C446.67 128.72 444.99 127.04 444.99 124.965V99.4699C444.99 98.7399 444.775 98.02 444.37 97.41L405.94 39.0039C404.295 36.5089 406.085 33.1885 409.075 33.1885H433.24C434.525 33.1885 435.72 33.8455 436.405 34.9305L449.69 55.859L457.33 68.47C457.625 68.9615 458.16 69.2615 458.735 69.2615C459.31 69.2615 459.845 68.9615 460.14 68.47L467.78 55.859L481.06 34.9305C481.75 33.8455 482.945 33.1885 484.23 33.1885H508.47C511.47 33.1885 513.26 36.536 511.59 39.0295L472.405 97.545C471.99 98.16 471.77 98.89 471.77 99.63V124.965Z" fill="white"/><path d="M398.06 124.965C398.06 127.04 396.38 128.72 394.31 128.72H317.059C314.986 128.72 313.307 127.04 313.307 124.965V36.941C313.307 34.8685 314.986 33.1885 317.059 33.1885H394.31C396.38 33.1885 398.06 34.8685 398.06 36.941V53.532C398.06 55.6045 396.38 57.285 394.31 57.285H343.838C341.767 57.285 340.086 58.9649 340.086 61.0374V64.9385C340.086 67.0115 341.767 68.6914 343.838 68.6914H392.173C394.245 68.6914 395.925 70.3715 395.925 72.444V88.89C395.925 90.965 394.245 92.645 392.173 92.645H343.838C341.767 92.645 340.086 94.325 340.086 96.4V100.87C340.086 102.94 341.767 104.62 343.838 104.62H394.31C396.38 104.62 398.06 106.3 398.06 108.375V124.965Z" fill="white"/><path d="M233.046 124.965C233.046 127.04 231.366 128.72 229.293 128.72H210.02C207.946 128.72 206.267 127.04 206.267 124.965V36.941C206.267 34.8685 207.946 33.1885 210.02 33.1885H229.293C231.366 33.1885 233.046 34.8685 233.046 36.941V64.9385C233.046 67.0115 234.727 68.6914 236.799 68.6914H250.246C251.513 68.6914 252.694 68.0525 253.387 66.9925L274.384 34.887C275.078 33.8275 276.259 33.1885 277.525 33.1885H300.311C303.353 33.1885 305.13 36.6165 303.379 39.1025L275.978 77.9975C275.086 79.264 275.062 80.95 275.92 82.235L302.956 122.885C304.614 125.38 302.826 128.72 299.83 128.72H276.811C275.546 128.72 274.365 128.08 273.672 127.02L253.673 96.4799C252.98 95.4199 251.799 94.785 250.533 94.785H236.799C234.727 94.785 233.046 96.465 233.046 98.535V124.965Z" fill="white"/></g></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="mobile-cta">
+        <a href="tel:+998997727777" class="btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span data-i18n="cta_call">Позвонить</span>
+        </a>
+    </div>
+
+    <script>
+        // Translations
+        const translations = {
+            ru: {
+                cta_call: "Позвонить",
+                cta_services: "Услуги",
+                cta_button: "Вызвать эвакуатор",
+                hero_badge: "Работаем сейчас — 24/7",
+                hero_title1: "Эвакуатор",
+                hero_title2: "за 15 минут",
+                hero_text: "Профессиональная эвакуация по Ташкенту и республике. Цены от 100 000 сум. Бережная погрузка.",
+                stat_orders: "Заказов",
+                stat_work: "Работаем",
+                stat_time: "Приезд",
+                features_label: "Преимущества",
+                features_title: "Почему мы",
+                f1_title: "15 минут",
+                f1_text: "Быстрый приезд в любую точку Ташкента. Свой автопарк по всему городу.",
+                f2_title: "Бережно",
+                f2_text: "Современное оборудование и опытные водители. Гарантия сохранности.",
+                f3_title: "Любая оплата",
+                f3_text: "Наличные, карта, Click, Payme. Платите после выполнения работы.",
+                f4_title: "24/7",
+                f4_text: "Диспетчер на связи круглосуточно. Ответим мгновенно в любое время.",
+                services_label: "Услуги",
+                services_title: "Эвакуируем",
+                services_subtitle: "От мотоцикла до грузовика. Цены от 100 000 сум.",
+                s1: "Легковые авто",
+                s2: "Внедорожники",
+                s3: "Микроавтобусы",
+                s4: "Мотоциклы",
+                s5: "После ДТП",
+                s6: "Межгород",
+                steps_label: "Процесс",
+                steps_title: "Как работаем",
+                step1_title: "Звоните",
+                step1_text: "Позвоните нам — диспетчер ответит мгновенно",
+                step2_title: "Адрес",
+                step2_text: "Скажите где машина и куда доставить",
+                step3_title: "Ждёте",
+                step3_text: "Эвакуатор приедет через 15-20 минут",
+                step4_title: "Оплата",
+                step4_text: "Платите после доставки любым способом",
+                cta_label: "Нужна помощь?",
+                cta_title: "Звоните сейчас",
+                reviews_label: "Отзывы",
+                reviews_title: "Клиенты о нас",
+                r1_text: "«Машина сломалась ночью на Чиланзаре. Приехали за 15 минут, всё сделали аккуратно. Рекомендую!»",
+                r1_name: "Азиз",
+                r1_date: "2 недели назад",
+                r2_text: "«После ДТП ребята всё взяли на себя. Быстро, чётко, помогли с документами. Огромное спасибо!»",
+                r2_name: "Дильшод",
+                r2_date: "1 месяц назад",
+                r3_text: "«Вызывала для мужа когда не завелась машина. Очень быстро, очень вежливые. Теперь только к вам!»",
+                r3_name: "Нигора",
+                r3_date: "3 недели назад"
+            },
+            uz: {
+                cta_call: "Qo'ng'iroq",
+                cta_services: "Xizmatlar",
+                cta_button: "Evakuator chaqirish",
+                hero_badge: "Hozir ishlaymiz — 24/7",
+                hero_title1: "Evakuator",
+                hero_title2: "15 daqiqada",
+                hero_text: "Toshkent va respublika bo'ylab professional evakuatsiya. Narxlar 100 000 so'mdan. Ehtiyotkorlik bilan yuklash.",
+                stat_orders: "Buyurtmalar",
+                stat_work: "Ishlaymiz",
+                stat_time: "Kelish",
+                features_label: "Afzalliklar",
+                features_title: "Nega biz",
+                f1_title: "15 daqiqa",
+                f1_text: "Toshkentning istalgan nuqtasiga tez yetib borish. Butun shahar bo'ylab o'z avtoparkimiz.",
+                f2_title: "Ehtiyotkorlik",
+                f2_text: "Zamonaviy jihozlar va tajribali haydovchilar. Xavfsizlik kafolati.",
+                f3_title: "Istalgan to'lov",
+                f3_text: "Naqd, karta, Click, Payme. Ish tugagandan keyin to'laysiz.",
+                f4_title: "24/7",
+                f4_text: "Dispetcher kechayu kunduz aloqada. Istalgan vaqtda javob beramiz.",
+                services_label: "Xizmatlar",
+                services_title: "Evakuatsiya",
+                services_subtitle: "Mototsikldan yuk mashinasigacha. Narxlar 100 000 so'mdan.",
+                s1: "Yengil avtomobillar",
+                s2: "Yo'l tanlamas",
+                s3: "Mikroavtobuslar",
+                s4: "Mototsikllar",
+                s5: "YTH dan keyin",
+                s6: "Shaharlararo",
+                steps_label: "Jarayon",
+                steps_title: "Qanday ishlaymiz",
+                step1_title: "Qo'ng'iroq",
+                step1_text: "Bizga qo'ng'iroq qiling — dispetcher darhol javob beradi",
+                step2_title: "Manzil",
+                step2_text: "Mashina qayerda va qayerga yetkazish kerakligini ayting",
+                step3_title: "Kutasiz",
+                step3_text: "Evakuator 15-20 daqiqada yetib keladi",
+                step4_title: "To'lov",
+                step4_text: "Yetkazib berilgandan keyin istalgan usulda to'laysiz",
+                cta_label: "Yordam kerakmi?",
+                cta_title: "Hozir qo'ng'iroq qiling",
+                reviews_label: "Sharhlar",
+                reviews_title: "Mijozlar fikri",
+                r1_text: "«Mashina kechasi Chilonzorda buzildi. 15 daqiqada yetib kelishdi, hammasini ehtiyotkorlik bilan qilishdi. Tavsiya qilaman!»",
+                r1_name: "Aziz",
+                r1_date: "2 hafta oldin",
+                r2_text: "«YTH dan keyin yigitlar hamma narsani o'z zimmalariga olishdi. Tez, aniq, hujjatlar bilan yordam berishdi. Katta rahmat!»",
+                r2_name: "Dilshod",
+                r2_date: "1 oy oldin",
+                r3_text: "«Erim uchun chaqirdim, mashina yonmadi. Juda tez, juda xushmuomala. Endi faqat sizlarga!»",
+                r3_name: "Nigora",
+                r3_date: "3 hafta oldin"
+            }
+        };
+
+        let currentLang = 'ru';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang === 'uz' ? 'uz' : 'ru';
+
+            // Меняем шрифт в зависимости от языка
+            document.documentElement.style.setProperty('--font', lang === 'uz'
+                ? "'Space Grotesk', sans-serif"
+                : "'Inter', sans-serif");
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            localStorage.setItem('lang', lang);
+        }
+
+        // Определяем язык из URL
+        function getLangFromPath() {
+            const path = window.location.pathname.replace(/\/$/, '');
+            if (path === '/uz') return 'uz';
+            if (path === '/ru') return 'ru';
+            return null;
+        }
+
+        // Language switcher
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = btn.dataset.lang;
+                const newPath = '/' + lang;
+                window.history.pushState({lang: lang}, '', newPath);
+                setLanguage(lang);
+            });
+        });
+
+        // Обработка кнопки "назад" в браузере
+        window.addEventListener('popstate', function(e) {
+            const lang = getLangFromPath() || 'ru';
+            setLanguage(lang);
+        });
+
+        // Загрузка языка: приоритет URL > localStorage > ru
+        const urlLang = getLangFromPath();
+        const savedLang = localStorage.getItem('lang');
+        const initLang = urlLang || savedLang || 'ru';
+        if (initLang !== 'ru') setLanguage(initLang);
+        if (urlLang) setLanguage(urlLang);
+
+        // Header scroll
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Reveal on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, i * 100);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

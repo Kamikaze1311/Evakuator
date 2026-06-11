@@ -1,0 +1,11 @@
+{
+  "app": {
+    "name": "evakuator725",
+    "port": 3725,
+    "path": "/var/www/evakuator725"
+  },
+  "domain": "725.uz",
+  "git": {
+    "branch": "master"
+  }
+}

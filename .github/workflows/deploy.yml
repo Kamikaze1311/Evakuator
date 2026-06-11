@@ -1,0 +1,264 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main, master]
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Read deploy config
+        id: config
+        run: |
+          echo "APP_NAME=$(jq -r '.app.name' deploy.config.json)" >> $GITHUB_OUTPUT
+          echo "APP_PORT=$(jq -r '.app.port' deploy.config.json)" >> $GITHUB_OUTPUT
+          echo "SERVER_PATH=$(jq -r '.app.path' deploy.config.json)" >> $GITHUB_OUTPUT
+          echo "DOMAIN=$(jq -r '.domain' deploy.config.json)" >> $GITHUB_OUTPUT
+
+      - name: Record start time
+        id: timer
+        run: echo "START=$(date +%s)" >> $GITHUB_OUTPUT
+
+      - name: Send Telegram notification (Start)
+        continue-on-error: true
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%B | head -c 200)
+          TEXT="🚀 <b>Deploy started:</b> ${{ steps.config.outputs.APP_NAME }}
+          👤 ${{ github.actor }}
+          📝 ${COMMIT_MSG}
+          🔗 <a href=\"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\">View logs</a>"
+          curl -sf -X POST \
+            "https://api.telegram.org/bot${{ secrets.TG_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TG_CHAT_ID }}" \
+            -d parse_mode="HTML" \
+            --data-urlencode "text=$TEXT"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js app
+        run: npm run build
+
+      - name: Package build artifacts
+        run: |
+          tar -czf deploy.tar.gz \
+            .next/ \
+            public/ \
+            package.json \
+            package-lock.json \
+            next.config.ts \
+            ecosystem.config.js
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Ensure server prerequisites
+        run: |
+          SSH="ssh -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}"
+
+          $SSH 'bash -s' << 'SETUP'
+          set -e
+
+          # Node.js
+          if ! command -v node &>/dev/null; then
+            echo "📦 Installing Node.js 20..."
+            curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+            apt-get install -y nodejs
+          fi
+          echo "  Node: $(node -v), npm: $(npm -v)"
+
+          # PM2
+          if ! command -v pm2 &>/dev/null; then
+            echo "📦 Installing PM2..."
+            npm install -g pm2
+            pm2 startup systemd -u root --hp /root
+            systemctl enable pm2-root 2>/dev/null || true
+          fi
+          echo "  PM2: $(pm2 -v)"
+
+          # Nginx
+          if ! command -v nginx &>/dev/null; then
+            echo "📦 Installing Nginx..."
+            apt-get update -y
+            apt-get install -y nginx
+            systemctl enable nginx
+            systemctl start nginx
+            rm -f /etc/nginx/sites-enabled/default
+          fi
+          echo "  Nginx: $(nginx -v 2>&1)"
+
+          # Certbot
+          if ! command -v certbot &>/dev/null; then
+            echo "📦 Installing Certbot..."
+            apt-get install -y certbot python3-certbot-nginx 2>/dev/null || echo "  Certbot install skipped"
+          fi
+
+          # Firewall
+          if command -v ufw &>/dev/null; then
+            ufw allow OpenSSH 2>/dev/null || true
+            ufw allow 'Nginx Full' 2>/dev/null || true
+            echo "y" | ufw enable 2>/dev/null || true
+          fi
+
+          echo "✅ All prerequisites ready"
+          SETUP
+
+      - name: Deploy to server
+        run: |
+          APP_NAME="${{ steps.config.outputs.APP_NAME }}"
+          APP_PORT="${{ steps.config.outputs.APP_PORT }}"
+          SERVER_PATH="${{ steps.config.outputs.SERVER_PATH }}"
+          SSH="ssh -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}"
+
+          # Create app directory and logs directory
+          $SSH "mkdir -p $SERVER_PATH/logs"
+
+          # Backup current build for rollback
+          $SSH "if [ -d ${SERVER_PATH}/.next ]; then rm -rf ${SERVER_PATH}/.next.bak && cp -r ${SERVER_PATH}/.next ${SERVER_PATH}/.next.bak; fi"
+
+          # Stop the app gracefully
+          $SSH "pm2 stop $APP_NAME 2>/dev/null || true"
+
+          # Clean old build and upload new one
+          $SSH "rm -rf ${SERVER_PATH:?}/.next ${SERVER_PATH:?}/ecosystem.config.js"
+          cat deploy.tar.gz | $SSH "tar -xzf - -C $SERVER_PATH"
+
+          # Install production dependencies on server
+          $SSH "cd $SERVER_PATH && npm ci --omit=dev"
+
+          # Start the app with pm2
+          $SSH "cd $SERVER_PATH && pm2 delete $APP_NAME 2>/dev/null || true"
+          $SSH "cd $SERVER_PATH && pm2 start ecosystem.config.js"
+          $SSH "pm2 save"
+
+          # Health check - wait up to 30 seconds
+          echo "Running health check..."
+          for i in $(seq 1 15); do
+            if $SSH "curl -sf -o /dev/null http://127.0.0.1:$APP_PORT/"; then
+              echo "✅ Health check passed (attempt $i)"
+              $SSH "rm -rf ${SERVER_PATH}/.next.bak"
+              exit 0
+            fi
+            echo "  Waiting... (attempt $i/15)"
+            sleep 2
+          done
+
+          # Health check failed — rollback to previous version
+          echo "❌ Health check failed! Rolling back..."
+          $SSH "pm2 stop $APP_NAME 2>/dev/null || true"
+          $SSH "if [ -d ${SERVER_PATH}/.next.bak ]; then rm -rf ${SERVER_PATH}/.next && mv ${SERVER_PATH}/.next.bak ${SERVER_PATH}/.next; fi"
+          $SSH "cd $SERVER_PATH && pm2 delete $APP_NAME 2>/dev/null || true && pm2 start ecosystem.config.js"
+          $SSH "pm2 save"
+          echo "Rolled back to previous version"
+          exit 1
+
+      - name: Configure Nginx
+        run: |
+          DOMAIN="${{ steps.config.outputs.DOMAIN }}"
+          APP_PORT="${{ steps.config.outputs.APP_PORT }}"
+          SSH="ssh -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}"
+
+          $SSH "sudo tee /etc/nginx/sites-available/$DOMAIN > /dev/null" << NGINXEOF
+          server {
+              listen 80;
+              listen [::]:80;
+              server_name $DOMAIN;
+
+              # Security headers
+              add_header X-Frame-Options "SAMEORIGIN" always;
+              add_header X-Content-Type-Options "nosniff" always;
+              add_header X-XSS-Protection "1; mode=block" always;
+              add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+              # Gzip compression
+              gzip on;
+              gzip_vary on;
+              gzip_proxied any;
+              gzip_comp_level 6;
+              gzip_min_length 256;
+              gzip_types
+                  text/plain
+                  text/css
+                  text/javascript
+                  application/javascript
+                  application/json
+                  application/xml
+                  image/svg+xml;
+
+              location / {
+                  proxy_pass http://127.0.0.1:$APP_PORT;
+                  proxy_http_version 1.1;
+                  proxy_set_header Upgrade \$http_upgrade;
+                  proxy_set_header Connection 'upgrade';
+                  proxy_set_header Host \$host;
+                  proxy_set_header X-Real-IP \$remote_addr;
+                  proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto \$scheme;
+                  proxy_cache_bypass \$http_upgrade;
+
+                  # Timeouts
+                  proxy_connect_timeout 60s;
+                  proxy_send_timeout 60s;
+                  proxy_read_timeout 60s;
+              }
+          }
+          NGINXEOF
+
+          # Enable site and reload Nginx
+          $SSH "sudo ln -sf /etc/nginx/sites-available/$DOMAIN /etc/nginx/sites-enabled/"
+          $SSH "sudo nginx -t && sudo systemctl reload nginx"
+
+          # Setup SSL with certbot (only on first deploy)
+          $SSH "if command -v certbot &>/dev/null && ! sudo test -d /etc/letsencrypt/live/$DOMAIN; then sudo certbot --nginx -d $DOMAIN --non-interactive --agree-tos --email admin@$DOMAIN --redirect || echo 'SSL setup skipped — certbot failed (DNS may not be ready)'; fi"
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
+
+      - name: Send Telegram notification (Success)
+        if: success()
+        continue-on-error: true
+        run: |
+          DURATION=$(( $(date +%s) - ${{ steps.timer.outputs.START }} ))
+          TEXT="✅ <b>Deploy successful:</b> ${{ steps.config.outputs.APP_NAME }}
+          ⏱ ${DURATION}s
+          🌐 https://${{ steps.config.outputs.DOMAIN }}"
+          curl -sf -X POST \
+            "https://api.telegram.org/bot${{ secrets.TG_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TG_CHAT_ID }}" \
+            -d parse_mode="HTML" \
+            --data-urlencode "text=$TEXT"
+
+      - name: Send Telegram notification (Failure)
+        if: failure()
+        continue-on-error: true
+        run: |
+          DURATION=$(( $(date +%s) - ${{ steps.timer.outputs.START }} ))
+          TEXT="❌ <b>Deploy failed:</b> ${{ steps.config.outputs.APP_NAME }}
+          ⏱ ${DURATION}s
+          🔗 <a href=\"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\">View logs</a>"
+          curl -sf -X POST \
+            "https://api.telegram.org/bot${{ secrets.TG_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TG_CHAT_ID }}" \
+            -d parse_mode="HTML" \
+            --data-urlencode "text=$TEXT"

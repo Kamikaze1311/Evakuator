@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh run:*)",
+      "Bash(git -C \"D:/my-projects/evakuator725\" remote -v)",
+      "Bash(git -C \"D:/my-projects/evakuator725\" log --oneline -5)",
+      "Bash(git -C \"D:/my-projects/evakuator725\" diff HEAD~1 --stat)",
+      "Bash(gh repo view:*)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:evakuator725.uz)",
+      "Bash(git -C \"D:/my-projects/evakuator725\" show HEAD~1:index.html)",
+      "Bash(git -C \"D:/my-projects/evakuator725\" status)",
+      "Bash(git -C \"D:/my-projects/evakuator725\" diff)",
+      "Bash(git -C \"D:/my-projects/evakuator725\" log --oneline -3)",
+      "Bash(git -C \"D:/my-projects/evakuator725\" add index.html .github/workflows/deploy.yml)",
+      "Bash(git -C \"D:/my-projects/evakuator725\" commit -m \"$\\(cat <<''EOF''\nfix: footer dev font to Inter for cyrillic, remove svg opacity, fix deploy script_stop\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"D:/my-projects/evakuator725\" push)",
+      "Bash(git -C \"D:/my-projects/evakuator725\" add .github/workflows/deploy.yml)",
+      "Bash(git -C \"D:/my-projects/evakuator725\" commit -m \"$\\(cat <<''EOF''\nfix: replace appleboy/ssh-action with direct SSH for reliable deploy\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfix: switch default language from Uzbek to Russian to resolve Google Ads cloaking block\n\nGoogle Ads flagged the site for \"cloaking\" because ads are in Russian but the\nsite opened in Uzbek. Now the HTML source is 100% Russian by default, matching\nthe ad language. Users can still switch to Uzbek via the language toggle.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")"
+    ]
+  }
+}
